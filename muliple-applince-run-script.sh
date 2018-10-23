@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 SID_FILE="$1"
 SCRIPT_FILE="$2"
@@ -15,17 +15,11 @@ if ! which sshpass &>/dev/null; then
     exit 1
 fi
 
-#KEYS="$(cat ${KEYS_FILE})"
-PATH_TO_COPY_SCRIPT=/tmp
-#PARTNER_SHARE_AUTH_KEYS=${PARTNER_SHARE_SSH_DIR}/authorized_keys
-#PARTNER_SSH_DIR=/home/partner/.ssh
-#PARTNER_AUTH_KEYS=${PARTNER_SSH_DIR}/authorized_keys
-
 while read sid; do 
     echo "Running script on $sid..."
     sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=30 -U root@/home/$sid/tunnels/ssh\
     "cd ${PATH_TO_COPY_SCRIPT};\
-    scp $SERIAL_NUMBER@axcient.net:/d*ox/m*ta/s*f/mtime*.sh ."
+    scp $sid@axcient.net:/d*ox/m*ta/s*f/mtime*.sh ."
 
     #"cd /home/partner || { echo No user partner; exit; };\
     #mount -o remount,rw /;\
